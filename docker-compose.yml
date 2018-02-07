@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  nginx:
+    image: servercontainers/nginx
+    restart: always
+    environment:
+      NGINX_CONFIG_radicale: server {server_name localhost; auth_basic "Restricted Area"; auth_basic_user_file /conf/auth.htpasswd; proxy_ssl_verify off; location / {proxy_pass http://radicale:8000/;} location /.web {auth_basic off; proxy_pass http://radicale:8000/.web;}}
+      # insecure! avoid in production!
+      HTACCESS_ACCOUNT_bob: pa55word
+      # use hashing like with `docker run -ti --rm alpine mkpasswd -m sha-512` - replace `$` with `$$` inside compose
+      HTACCESS_ACCOUNT_alice: $$5$$1JziPXzzTYrSrUiC$RMoWaw3k3UyCDKop4RuNSP/NvbJ4xh2fNLlihatRh70
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web-test
+
+  radicale:
+    build: .
+    image: servercontainers/radicale
+    restart: always
+    volumes:
+      - './data:/data'
+    networks:
+      - web-test
+
+networks:
+  web-test:
+    driver: bridge
