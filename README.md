@@ -1,4 +1,4 @@
-# Docker radicale (ghcr.io/servercontainers/radicale)
+# radicale CalDAV/CardDAV Server- (ghcr.io/servercontainers/radicale) (+ git versioning) on alpine [x86 + arm]
 _maintained by ServerContainers_
 
 ## What is it
