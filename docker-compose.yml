@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    image: servercontainers/nginx
+    image: ghcr.io/servercontainers/nginx
     restart: always
     environment:
       NGINX_CONFIG_radicale: server {server_name localhost; auth_basic "Restricted Area"; auth_basic_user_file /conf/auth.htpasswd; proxy_ssl_verify off; location / {proxy_pass http://radicale:8000/;} location /.web {auth_basic off; proxy_pass http://radicale:8000/.web;}}
@@ -18,7 +18,7 @@ services:
 
   radicale:
     build: .
-    image: servercontainers/radicale
+    image: ghcr.io/servercontainers/radicale
     restart: always
     volumes:
       - './data:/data'
