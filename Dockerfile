@@ -8,11 +8,11 @@ RUN apk add --no-cache git py3-pip \
  \
  && adduser -S -D -h /data radicale radicale
 
-COPY entrypoint.sh /usr/local/bin
-
 EXPOSE 8000
 
 COPY . /container/
+
+HEALTHCHECK CMD ["/container/scripts/docker-healthcheck.sh"]
 ENTRYPOINT ["/container/scripts/entrypoint.sh"]
 
 CMD [ "/container/scripts/command.sh" ]
