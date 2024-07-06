@@ -1,7 +1,7 @@
 #!/bin/bash
 export IMG=$(docker build -q --pull --no-cache -t 'get-version' .)
 
-export RADICALE_VERSION=$(docker run --rm -t get-version pip3 list | grep -i radicale | tr ' ' '\n' | grep '[0-9]\.[0-9]')
+export RADICALE_VERSION=$(docker run --rm -t get-version pip3 list | grep -i radicale | tr ' ' '\n' | grep '[0-9]\.[0-9]' | tr -d '\r')
 export ALPINE_VERSION=$(docker run --rm -t get-version cat /etc/alpine-release | tail -n1 | tr -d '\r')
 [ -z "$ALPINE_VERSION" ] && exit 1
 
