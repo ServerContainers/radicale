@@ -3,7 +3,7 @@ FROM alpine
 ENV PATH="/container/scripts:${PATH}"
 
 RUN apk add --no-cache git py3-pip \
- && pip3 install --upgrade radicale \
+ && pip3 install --break-system-packages --upgrade radicale \
  && mkdir /data \
  \
  && adduser -S -D -h /data radicale radicale
